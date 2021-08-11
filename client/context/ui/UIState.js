@@ -1,4 +1,4 @@
-import { SHOW_EDIT_WINDOW, SHOW_NEW_WINDOW } from "../types";
+import { SHOW_INVOICE_WINDOW, SHOW_MODAL, SET_TYPE } from "../types";
 
 import React, { useReducer, useContext } from "react";
 
@@ -7,16 +7,46 @@ import UIReducer from "./UIReducer";
 
 const UIState = (props) => {
   const initialState = {
-    showEditWindow: false,
-    showNewWindow: false,
+    showWindow: false,
+    showModal: false,
+    showSpinner: false,
+    showType: "all",
   };
 
   const [state, dispatch] = useReducer(UIReducer, initialState);
 
-  const showNewInvoiceWindow = () => {
+  const showInvoiceWindow = () => {
     dispatch({
-      type: SHOW_NEW_WINDOW,
-      payload: !state.showNewWindow,
+      type: SHOW_INVOICE_WINDOW,
+      payload: !state.showWindow,
+    });
+  };
+
+  const showConfirmModal = () => {
+    dispatch({
+      type: SHOW_MODAL,
+      payload: !state.showModal,
+    });
+  };
+
+  const hideConfirmModal = () => {
+    dispatch({
+      type: SHOW_MODAL,
+      payload: !state.showModal,
+    });
+  };
+
+  const showSpinner = () => {
+    dispatch({
+      type: SHOW_SPINNER,
+      payload: !state.showSpinner,
+    });
+  };
+
+  const setShowType = (type) => {
+    dispatch({
+      type: SET_TYPE,
+      payload: type,
     });
   };
 
@@ -25,7 +55,11 @@ const UIState = (props) => {
     <UIContext.Provider
       value={{
         state: state,
-        showNewInvoiceWindow,
+        showInvoiceWindow,
+        showConfirmModal,
+        hideConfirmModal,
+        showSpinner,
+        setShowType,
       }}
     >
       {props.children}

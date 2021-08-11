@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+var cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -7,6 +8,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 
 const app = express();
+app.use(cors());
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -15,24 +17,26 @@ const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
 const dataRoutes = require("./routes/dataRoutes");
 
-const globalErrorHandler = require("./controllers/errorController");
+// const globalErrorHandler = require("./controllers/errorController");
 
 dotenv.config();
 
+const port = process.env.DB_PORT || 4444;
+
 //? Notes
 //? This limiter will limit an IPs amount of times it can make a request per window if time.
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message:
-    "You have made too many requests from this IP. Please try again in 60 minutes.",
-});
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message:
+//     "You have made too many requests from this IP. Please try again in 60 minutes.",
+// });
 
 //? Setting some misc useful headers - check doc for more options
 app.use(helmet());
 
 //? Limit request
-app.use("/api", limiter);
+// app.use("/api", limiter);
 
 //? Body parsers
 app.use(express.static(__dirname + "/public"));
@@ -57,9 +61,9 @@ app.use(
 app.use("/api/users", userRoutes);
 app.use("/api/data", dataRoutes);
 
-app.use(globalErrorHandler);
+// app.use(globalErrorHandler);
 
-app.listen(process.env.PORT || process.env.DB_PORT || 4444, () => {
+app.listen(port, () => {
   console.log("Server has loaded");
   console.log(process.env.NODE_ENV);
 });
@@ -74,5 +78,5 @@ mongoose.connect(
     useFindAndModify: false,
     useCreateIndex: true,
   },
-  () => console.log("CONNECTED to mongo")
+  () => console.log(`CONNECTED to mongo and server is on ${port}`)
 );

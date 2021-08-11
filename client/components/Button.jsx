@@ -5,6 +5,7 @@ import { MyTheme } from "../styles/theme/theme";
 const Container = styled.button`
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.textColor || "white"};
+  margin: ${(props) => props.margin || 0};
   font-size: ${MyTheme.fontSizes.caption};
   padding: ${MyTheme.space.medium} ${MyTheme.space.large};
   border: none;
@@ -27,13 +28,14 @@ const Container = styled.button`
   }
 `;
 
-export default function Button({ bgColor, textColor, isPlus, text }) {
+export default function Button({ bgColor, textColor, isPlus, text, margin }) {
   return (
     <Container
       bgColor={bgColor}
       textColor={textColor}
       isPlus={isPlus}
       text={text}
+      margin={margin}
     >
       {text || "Forgot text"}
     </Container>

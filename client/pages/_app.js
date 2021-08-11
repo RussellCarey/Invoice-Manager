@@ -1,12 +1,15 @@
 import "../styles/globals.css";
 
 import UIState from "../context/ui/UIState";
+import InvoiceState from "../context/invoices/InvoiceState";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <UIState>
-      <Component {...pageProps} />
-    </UIState>
+    <InvoiceState>
+      <UIState>
+        <Component {...pageProps} />
+      </UIState>
+    </InvoiceState>
   );
 }
 

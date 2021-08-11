@@ -1,11 +1,31 @@
-import { SHOW_EDIT_WINDOW, SHOW_NEW_WINDOW } from "../types";
+import {
+  SHOW_INVOICE_WINDOW,
+  SHOW_MODAL,
+  SHOW_SPINNER,
+  SET_TYPE,
+} from "../types";
 
 export default (state, action) => {
   switch (action.type) {
-    case SHOW_NEW_WINDOW:
+    case SHOW_INVOICE_WINDOW:
       return {
         ...state,
-        showNewWindow: action.payload,
+        showWindow: action.payload,
+      };
+    case SHOW_MODAL:
+      return {
+        ...state,
+        showModal: action.payload,
+      };
+    case SHOW_SPINNER:
+      return {
+        ...state,
+        showModal: action.payload,
+      };
+    case SET_TYPE:
+      return {
+        ...state,
+        showType: action.payload,
       };
 
     default:

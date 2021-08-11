@@ -1,36 +1,52 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Image from "next/image";
+import React, { useContext, useEffect, Fragment } from "react";
 import { MyTheme } from "../../styles/theme/theme";
+import styled from "styled-components";
+import axios from "axios";
 
 import Layout from "../../components/Layout";
 import GoBackBar from "../../components/GoBackBar";
 import InvoiceBar from "../../components/InvoiceBar";
 import InvoiceInfo from "../../components/InvoiceInfo";
 
-import EditWindow from "../../components/EditWindow";
+import InvoiceWindow from "../../components/InvoiceWindow";
+
+import UIContext from "../../context/ui/UIContext";
+import InvoiceContext from "../../context/invoices/InvoiceContext";
 
 const Container = styled.div``;
 
 export default function SingleInvoice({ id }) {
-  const [showNew, setShowNew] = useState(false);
+  const uiContext = useContext(UIContext);
+  const { state } = uiContext;
+  const invoiceContext = useContext(InvoiceContext);
+  const { setCurrentInvoice, invoiceState } = invoiceContext;
+
+  const getInvoiceData = async () => {
+    const req = await axios.get(`http://localhost:2222/api/data/invoice/${id}`);
+    const data = req.data.data;
+    console.log(data);
+    setCurrentInvoice(data);
+  };
+
+  useEffect(() => {
+    getInvoiceData();
+  }, []);
 
   return (
-    <Layout>
-      {showNew && <EditWindow />}
-      <Container>
-        <GoBackBar />
-        <InvoiceBar setShowNew={setShowNew} showNew={showNew} />
-        <InvoiceInfo />
-      </Container>
-    </Layout>
+    <Fragment>
+      {state.showWindow && <InvoiceWindow isNewWindow={false} />}
+      <Layout>
+        <Container>
+          <GoBackBar />
+          <InvoiceBar id={id} />
+          {invoiceState.currentInvoice && <InvoiceInfo />}
+        </Container>
+      </Layout>
+    </Fragment>
   );
 }
 
 export async function getServerSideProps({ query: { id } }) {
-  //   const res = await fetch(`${API_URL}/events?slug=${id}`);
-  //   const evt = await res.json();
-
   return {
     props: {
       id: id,

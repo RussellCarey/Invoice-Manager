@@ -1,0 +1,15 @@
+//- Email template adapted from https://github.com/leemunroe/responsive-html-email-template
+//- Converted from HTML using https://html2pug.now.sh/
+
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title= subject
+
+    // THIS INCLUDES THE TEMPLATE _STYLE TO THE EMAIL -- THIS CONTAINS THE CSSSSS
+    include _style.pug
+  body
+    .container 
+       block content

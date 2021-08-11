@@ -1,8 +1,16 @@
 import styled from "styled-components";
+import React, { useContext, useState, Fragment } from "react";
+import { useRouter } from "next/router";
 import Button from "./Button";
+
 import { MyTheme } from "../styles/theme/theme";
 
 import Notification from "./Notification";
+
+import UIContext from "../context/ui/UIContext";
+import InvoiceContext from "../context/invoices/InvoiceContext";
+
+import WarningScreen from "./WarningScreen";
 
 const Container = styled.div`
   width: 100%;
@@ -35,31 +43,102 @@ const Text = styled.p`
   margin-right: ${MyTheme.space.large};
 `;
 
-export default function InvoiceBar() {
-  return (
-    <Container>
-      <Area>
-        <Text>Status</Text>
-        <Notification status={"pending"} />
-      </Area>
+const ButtonClickDiv = styled.div``;
 
-      <Area>
-        <Button
-          bgColor={MyTheme.colors.ui.btnWhite}
-          textColor={MyTheme.colors.text.lightPurple}
-          text={"Edit"}
+export default function InvoiceBar({ id, invoice }) {
+  const router = useRouter();
+
+  const [buttonClick, setButtonClick] = useState(null);
+
+  const uiContext = useContext(UIContext);
+  const { showInvoiceWindow, state, showConfirmModal } = uiContext;
+  const invoiceContext = useContext(InvoiceContext);
+  const { deleteInvoice, updateStatus, invoiceState } = invoiceContext;
+
+  const clickHandler = () => {
+    showInvoiceWindow();
+  };
+
+  const setAsPaid = () => {
+    updateStatus(id, "paid");
+    showConfirmModal();
+    router.reload(window.location.pathname);
+  };
+
+  const deleteCurrentInvoice = () => {
+    deleteInvoice(id);
+    showConfirmModal();
+    router.reload(window.location.pathname);
+  };
+
+  return (
+    <Fragment>
+      {buttonClick === "delete" && state.showModal ? (
+        <WarningScreen
+          title={"Confirm delete."}
+          text={"Are you sure you want to delete this invoice?"}
+          funcToRun={deleteCurrentInvoice}
         />
-        <Button
-          bgColor={MyTheme.colors.ui.btnRed}
-          textColor={"white"}
-          text={"Delete"}
+      ) : null}
+      {buttonClick === "paid" && state.showModal ? (
+        <WarningScreen
+          title={"Confirm paid."}
+          text={"Are you sure you want to set this invoice as paid"}
+          funcToRun={setAsPaid}
         />
-        <Button
-          bgColor={MyTheme.colors.ui.btnPurple}
-          textColor={"white"}
-          text={"Mark as paid"}
-        />
-      </Area>
-    </Container>
+      ) : null}
+
+      <Container>
+        <Area>
+          <Text>Status</Text>
+          <Notification
+            status={
+              invoiceState.currentInvoice && invoiceState.currentInvoice.status
+            }
+          />
+        </Area>
+
+        <Area>
+          {invoiceState.currentInvoice &&
+            invoiceState.currentInvoice.status !== "paid" && (
+              <Fragment>
+                <ButtonClickDiv onClick={() => clickHandler()}>
+                  <Button
+                    bgColor={MyTheme.colors.ui.btnWhite}
+                    textColor={MyTheme.colors.text.lightPurple}
+                    text={"Edit"}
+                  />
+                </ButtonClickDiv>
+
+                <ButtonClickDiv
+                  onClick={() => {
+                    setButtonClick("paid");
+                    showConfirmModal();
+                  }}
+                >
+                  <Button
+                    bgColor={MyTheme.colors.ui.btnPurple}
+                    textColor={"white"}
+                    text={"Mark as paid"}
+                  />
+                </ButtonClickDiv>
+              </Fragment>
+            )}
+
+          <ButtonClickDiv
+            onClick={() => {
+              setButtonClick("delete");
+              showConfirmModal();
+            }}
+          >
+            <Button
+              bgColor={MyTheme.colors.ui.btnRed}
+              textColor={"white"}
+              text={"Delete"}
+            />
+          </ButtonClickDiv>
+        </Area>
+      </Container>
+    </Fragment>
   );
 }

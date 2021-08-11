@@ -1,10 +1,13 @@
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { MyTheme } from "../styles/theme/theme";
 
+import InvoiceContext from "../context/invoices/InvoiceContext";
+
 const Container = styled.div`
   width: 100%;
-  padding: ${MyTheme.space.xlarge};
+  padding: ${MyTheme.space.large};
 
   border-radius: 10px;
 
@@ -23,20 +26,24 @@ const TopSection = styled.div`
   grid-gap: ${MyTheme.space.large};
 
   line-height: ${MyTheme.lineHeights.small};
+
+  margin-bottom: ${MyTheme.space.large};
 `;
 
 const BottomSection = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr 2fr 2fr;
-  padding: ${MyTheme.space.large};
+  display: flex;
+  flex-direction: column;
   background-color: ${MyTheme.colors.bg.light};
   border-radius: 10px 10px 0 0;
 `;
 
-const BottomSectionColumn = styled.div`
+const BottomSectionRowContainer = styled.div`
+  width: 100%;
+  padding: ${MyTheme.space.large};
+  padding-bottom: ${MyTheme.space.medium};
   display: grid;
-  grid-template-rows: repeat(1fr);
-  grid-row-gap: ${MyTheme.space.large};
+  grid-template-columns: 3fr 1fr 2fr 2fr;
+  margin-bottom: ${MyTheme.space.small};
 `;
 
 const TotalArea = styled.div`
@@ -72,84 +79,81 @@ const SectionDiv = styled.div`
   text-align: ${(props) => props.align || null};
 `;
 
-export default function InvoiceInfo() {
+export default function InvoiceInfo({ invoice }) {
+  const invoiceContext = useContext(InvoiceContext);
+  const { invoiceState } = invoiceContext;
+
   return (
     <Container>
       <TopSection>
         <SectionDiv row={"1/2"} col={"1/2"}>
-          <Text>#XM9141</Text>
-          <SmallText>Graphic Design</SmallText>
+          <Text>#{invoiceState.currentInvoice.invoiceId}</Text>
+          <SmallText>
+            {invoiceState.currentInvoice.projectDescription}
+          </SmallText>
         </SectionDiv>
 
         <SectionDiv row={"1/2"} col={"4/5"} align={"right"}>
-          <SmallText>25 Chcihester Road</SmallText>
-          <SmallText>Bognor Regis</SmallText>
-          <SmallText>West Sussex</SmallText>
-          <SmallText>PO21 2XQ</SmallText>
+          <SmallText>{invoiceState.currentInvoice.billerStreet}</SmallText>
+          <SmallText>{invoiceState.currentInvoice.billerCity}</SmallText>
+          <SmallText>{invoiceState.currentInvoice.billerCountry}</SmallText>
+          <SmallText>{invoiceState.currentInvoice.billerPostCode}</SmallText>
         </SectionDiv>
 
         <SectionDiv row={"2/3"} col={"1/2"}>
           <SmallText>Invoice Date</SmallText>
-          <Text>20 Sep 2022</Text>
+          <Text>{invoiceState.currentInvoice.clientIssueDate}</Text>
         </SectionDiv>
 
         <SectionDiv row={"3/4"} col={"1/2"}>
           <SmallText>Payment Due</SmallText>
-          <Text>25 Sep 2022</Text>
+          <Text>{invoiceState.currentInvoice.clientPaymentTerms}</Text>
         </SectionDiv>
 
         <SectionDiv row={"2/4"} col={"2/3"}>
           <SmallText>Bill To</SmallText>
-          <Text>Russell Carey</Text>
-          <SmallText>Bognor Regis</SmallText>
-          <SmallText>West Sussex</SmallText>
-          <SmallText>PO21 2XQ</SmallText>
+          <Text>{invoiceState.currentInvoice.clientStreetAddress}</Text>
+          <SmallText>{invoiceState.currentInvoice.clientCity}</SmallText>
+          <SmallText>{invoiceState.currentInvoice.clientCountry}</SmallText>
+          <SmallText>{invoiceState.currentInvoice.clientPostCode}</SmallText>
         </SectionDiv>
 
         <SectionDiv row={"2/3"} col={"3/5"}>
           <SmallText>Sent To</SmallText>
-          <Text>rusell_carey@hotmail.co.uk</Text>
+          <Text>{invoiceState.currentInvoice.clientEmail}</Text>
         </SectionDiv>
       </TopSection>
 
       <BottomSection>
-        <SectionDiv row={"1/2"} col={"1/2"}>
-          <BottomSectionColumn>
-            <SmallText>Item Name</SmallText>
-            <Text>Wedsite Design</Text>
-            <Text>Website Development</Text>
-          </BottomSectionColumn>
-        </SectionDiv>
+        <BottomSectionRowContainer>
+          <SmallText>Item Name</SmallText>
+          <SmallText>QTY.</SmallText>
+          <SmallText style={{ justifySelf: "flex-end" }}>Price</SmallText>
+          <SmallText style={{ justifySelf: "flex-end" }}>Total</SmallText>
+        </BottomSectionRowContainer>
 
-        <SectionDiv row={"1/2"} col={"2/3"}>
-          <BottomSectionColumn>
-            <SmallText>QTY.</SmallText>
-            <Text>1</Text>
-            <Text>2</Text>
-          </BottomSectionColumn>
-        </SectionDiv>
+        {invoiceState.currentInvoice.items.length > 0
+          ? invoiceState.currentInvoice.items.map((item) => {
+              return (
+                <BottomSectionRowContainer key={Math.random() * 1000}>
+                  <SmallText>{item.name}</SmallText>
+                  <SmallText>{item.qty}</SmallText>
+                  <SmallText style={{ justifySelf: "flex-end" }}>
+                    {item.price}
+                  </SmallText>
+                  <SmallText style={{ justifySelf: "flex-end" }}>
+                    {item.total}
+                  </SmallText>
+                </BottomSectionRowContainer>
+              );
+            })
+          : null}
 
-        <SectionDiv row={"1/2"} col={"3/4"} align={"right"}>
-          <BottomSectionColumn>
-            <SmallText>Price</SmallText>
-            <Text>$500</Text>
-            <Text>$1500</Text>
-          </BottomSectionColumn>
-        </SectionDiv>
-
-        <SectionDiv row={"1/2"} col={"4/5"} align={"right"}>
-          <BottomSectionColumn>
-            <SmallText>Total</SmallText>
-            <Text>$500</Text>
-            <Text>$3000</Text>
-          </BottomSectionColumn>
-        </SectionDiv>
+        <TotalArea>
+          <SmallText>Amount Due</SmallText>
+          <LargeText>{invoiceState.currentInvoice.total}</LargeText>
+        </TotalArea>
       </BottomSection>
-
-      <TotalArea>
-        <SmallText>Amount Due</SmallText>
-        <LargeText>$3500</LargeText>
-      </TotalArea>
     </Container>
   );
 }

@@ -12,5 +12,11 @@ export const LOGOUT = "LOGOUT";
 export const IS_LOADING = "IS_LOADING";
 export const IS_NOT_LOADING = "IS_NOT_LOADING";
 
-export const SHOW_EDIT_WINDOW = "SHOW_EDIT_WINDOW";
-export const SHOW_NEW_WINDOW = "SHOW_NEW_WINDOW";
+export const SHOW_INVOICE_WINDOW = "SHOW_INVOICE_WINDOW";
+export const SHOW_MODAL = "SHOW_MODAL";
+export const HIDE_MODAL = "HIDE_MODAL";
+export const SHOW_SPINNER = "HIDE_MODAL";
+export const SET_TYPE = "SET_TYPE";
+
+export const SET_ALL_INVOICES = "SET_ALL_INVOICES";
+export const SET_CURRENT_INVOICE = "SET_CURRENT_INVOICE";

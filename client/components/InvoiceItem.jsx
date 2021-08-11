@@ -116,15 +116,15 @@ const Notification = styled.div`
 
 const Arrow = styled(Image)``;
 
-export default function InvoiceItem({ id, name, dueDate, amount, status }) {
+export default function InvoiceItem({ object }) {
   return (
-    <Link href="/invoice/JF343">
+    <Link href={`/invoice/${object.invoiceId}`}>
       <Container>
-        <Id>#JF343</Id>
-        <Name>Russell Carey</Name>
+        <Id>#{object.invoiceId}</Id>
+        <Name>{object.clientName}</Name>
         <Date>Oct 20 2021</Date>
-        <Cost>$230</Cost>
-        <Notification status={"pending"}>Pending</Notification>
+        <Cost>${object.total}</Cost>
+        <Notification status={object.status}>{object.status}</Notification>
         {/* <Arrow src={arrowImage.src} width={15} height={15} alt='right arrow'/> */}
       </Container>
     </Link>
