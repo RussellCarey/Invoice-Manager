@@ -45,6 +45,7 @@ Not mobile repsonsive fully.
 Project is: Finished but not completed.
 
 This was a project just for learning to use Stripe payment portals and to practice making a website / app with Next JS.  
+
 The Design was from a Front End Mentor Challenge.
 
 
