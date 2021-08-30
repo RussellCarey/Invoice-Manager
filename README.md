@@ -3,11 +3,11 @@ A MERN + Next site to send bills to clients and manage them. Uses stripe payment
 
 Not mobile repsonsive fully.
 
-![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/public/client/s1.png)
-![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/public/client/s2.png)
-![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/public/client/s3.png)
-![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/public/client/s4.png)
-![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/public/client/s5.png)
+![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/client/s1.png)
+![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/client/s2.png)
+![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/client/s3.png)
+![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/client/s4.png)
+![alt text](https://github.com/RussellCarey/Invoice-Manager/blob/master/client/s5.png)
 
 ## Table of contents
 
