@@ -1,8 +1,0 @@
-extends baseEmail 
-
-block content 
-    p Hello #{firstName}
-    p This is a friendly reminder you have a payment due to Russell Carey @ Great Designs.
-    a(href=`http://localhost:3000/payment/${invoice.invoiceId}`) Click here to pay.
-    p Thank you for your time and have a great day.
-    p Russell Carey
