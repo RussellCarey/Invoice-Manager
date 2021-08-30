@@ -47,16 +47,11 @@ Not mobile repsonsive fully.
 
 ## Status
 
-Project is: Finished but not completed.
+Project is: Unfinished and wont be completed. I plan to recreate the project ofrom the beginning to improve it in all aspects.
 
 This was a project just for learning to use Stripe payment portals and to practice making a website / app with Next JS.  
 
 The Design was from a Front End Mentor Challenge.
-
-
-## Features for future development
-- Will recreate the project on the whole to improve it in all aspects.
-
 
 ## Contact
 Created by [@RussellCarey](https://twitter.com/russellcareyy) - feel free to contact me about the project
