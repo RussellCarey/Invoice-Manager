@@ -78,38 +78,6 @@ const ThemeUser = styled.div`
   }
 `;
 
-const ThemeChange = styled.div`
-  width: 100%;
-  height: min-content;
-  padding: ${MyTheme.space.large};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-bottom: solid 1px ${MyTheme.colors.ui.line};
-
-  @media (max-width: 1000px) {
-    height: 100%;
-    border: none;
-    border-right: solid 1px ${MyTheme.colors.ui.line};
-  }
-`;
-
-const UserImageDiv = styled.div`
-  width: 100%;
-  height: min-content;
-  padding: ${MyTheme.space.large} ${MyTheme.space.medium};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const UserImage = styled(Image)`
-  border-radius: 50%;
-`;
-
 export default function Sidebar() {
   return (
     <Container>
@@ -118,26 +86,6 @@ export default function Sidebar() {
         <LogoBGTop />
         <Logo src={logoImage.src} alt="Logo" width={30} height={30} />
       </LogoContainer>
-
-      <ThemeUser>
-        <ThemeChange>
-          <Image
-            src={themeIcon.src}
-            width={20}
-            height={20}
-            alt="theme toggle"
-          />
-        </ThemeChange>
-
-        <UserImageDiv>
-          <UserImage
-            src={userImage.src}
-            width={35}
-            height={35}
-            alt="Profile Image"
-          />
-        </UserImageDiv>
-      </ThemeUser>
     </Container>
   );
 }

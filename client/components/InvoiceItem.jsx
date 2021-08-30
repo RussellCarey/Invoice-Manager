@@ -82,17 +82,8 @@ const Cost = styled.p`
 
 const Notification = styled.div`
   background-color: ${(props) =>
-    props.status === "paid"
-      ? MyTheme.colors.notifications.green
-      : props.status === "pending"
-      ? MyTheme.colors.notifications.orange
-      : MyTheme.colors.notifications.white};
-  color: ${(props) =>
-    props.status === "paid"
-      ? MyTheme.colors.text.green
-      : props.status === "pending"
-      ? MyTheme.colors.text.orange
-      : MyTheme.colors.text.white};
+    props.status === "paid" ? MyTheme.colors.notifications.green : props.status === "pending" ? MyTheme.colors.notifications.orange : MyTheme.colors.notifications.white};
+  color: ${(props) => (props.status === "paid" ? MyTheme.colors.text.green : props.status === "pending" ? MyTheme.colors.text.orange : MyTheme.colors.text.white)};
 
   grid-column: 5/6;
   grid-row: 1/2;
@@ -122,7 +113,7 @@ export default function InvoiceItem({ object }) {
       <Container>
         <Id>#{object.invoiceId}</Id>
         <Name>{object.clientName}</Name>
-        <Date>Oct 20 2021</Date>
+        <Date>DATE HERE</Date>
         <Cost>${object.total}</Cost>
         <Notification status={object.status}>{object.status}</Notification>
         {/* <Arrow src={arrowImage.src} width={15} height={15} alt='right arrow'/> */}

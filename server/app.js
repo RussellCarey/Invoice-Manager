@@ -14,7 +14,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 
-const userRoutes = require("./routes/userRoutes");
 const dataRoutes = require("./routes/dataRoutes");
 
 // const globalErrorHandler = require("./controllers/errorController");
@@ -58,7 +57,6 @@ app.use(
 );
 
 //! Create a route 'URL base' that the routes use
-app.use("/api/users", userRoutes);
 app.use("/api/data", dataRoutes);
 
 // app.use(globalErrorHandler);

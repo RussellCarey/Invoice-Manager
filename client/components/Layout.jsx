@@ -32,7 +32,7 @@ const MainArea = styled.main`
 
   overflow-y: scroll;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     padding: 2.5% 10%;
   }
 

@@ -95,37 +95,26 @@ export default function InvoiceHead() {
   const uiContext = useContext(UIContext);
   const { showInvoiceWindow, setShowType } = uiContext;
   const invoiceContext = useContext(InvoiceContext);
-  const { invoiceState } = invoiceContext;
+  const { invoiceState, filterInvoices } = invoiceContext;
 
   const clickHandler = () => {
     showInvoiceWindow();
   };
 
   const selectOnChange = (e) => {
-    setShowType(e.value);
+    filterInvoices(e.value);
   };
 
   return (
     <Container>
       <TextArea>
         <Title>Invoice</Title>
-        <Caption>
-          There are a total of {invoiceState.allInvoices.length} invoices.
-        </Caption>
+        <Caption>There are a total of {invoiceState.allInvoices.length} invoices.</Caption>
       </TextArea>
       <FilterandButton>
-        <Select
-          styles={SelectStyles}
-          options={options}
-          onChange={(e) => selectOnChange(e)}
-        ></Select>
+        <Select styles={SelectStyles} options={options} onChange={(e) => selectOnChange(e)}></Select>
         <ButtonClickDiv onClick={() => clickHandler()}>
-          <Button
-            bgColor={MyTheme.colors.ui.btnPurple}
-            isPlus={true}
-            text={"New Invoice"}
-            margin={`0 0 0 ${MyTheme.space.large}`}
-          />
+          <Button bgColor={MyTheme.colors.ui.btnPurple} isPlus={true} text={"New Invoice"} margin={`0 0 0 ${MyTheme.space.large}`} />
         </ButtonClickDiv>
       </FilterandButton>
     </Container>

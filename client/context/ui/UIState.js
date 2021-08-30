@@ -43,13 +43,6 @@ const UIState = (props) => {
     });
   };
 
-  const setShowType = (type) => {
-    dispatch({
-      type: SET_TYPE,
-      payload: type,
-    });
-  };
-
   //! Returns the provider with its value - then props.children is just anything else added in betweem.
   return (
     <UIContext.Provider
@@ -59,7 +52,6 @@ const UIState = (props) => {
         showConfirmModal,
         hideConfirmModal,
         showSpinner,
-        setShowType,
       }}
     >
       {props.children}

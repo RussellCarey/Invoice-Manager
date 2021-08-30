@@ -1,6 +1,4 @@
-const stripe = require("stripe")(
-  "sk_test_51JAt0cCwt4CLusOHhxNJIRVspBM0tlRSqfeAxiqTJ2mtf38fwQ70YsIqD0X8b2lIDOHseUwJbHb9QxD7SdB8gdL500inb3egBG"
-);
+const stripe = require("stripe")("");
 const Email = require("../utils/email");
 const InvoiceModel = require("../models/InvoiceModel");
 

@@ -40,7 +40,7 @@ const BottomSection = styled.div`
 const BottomSectionRowContainer = styled.div`
   width: 100%;
   padding: ${MyTheme.space.large};
-  padding-bottom: ${MyTheme.space.medium};
+  padding-bottom: ${MyTheme.space.small};
   display: grid;
   grid-template-columns: 3fr 1fr 2fr 2fr;
   margin-bottom: ${MyTheme.space.small};
@@ -66,6 +66,7 @@ const SmallText = styled.p`
 const Text = styled.p`
   color: ${MyTheme.colors.text.white};
   font-size: ${MyTheme.fontSizes.body};
+  margin-bottom: ${MyTheme.space.small};
 `;
 
 const LargeText = styled.p`
@@ -88,9 +89,7 @@ export default function InvoiceInfo({ invoice }) {
       <TopSection>
         <SectionDiv row={"1/2"} col={"1/2"}>
           <Text>#{invoiceState.currentInvoice.invoiceId}</Text>
-          <SmallText>
-            {invoiceState.currentInvoice.projectDescription}
-          </SmallText>
+          <SmallText>{invoiceState.currentInvoice.projectDescription}</SmallText>
         </SectionDiv>
 
         <SectionDiv row={"1/2"} col={"4/5"} align={"right"}>
@@ -101,35 +100,35 @@ export default function InvoiceInfo({ invoice }) {
         </SectionDiv>
 
         <SectionDiv row={"2/3"} col={"1/2"}>
-          <SmallText>Invoice Date</SmallText>
-          <Text>{invoiceState.currentInvoice.clientIssueDate}</Text>
+          <Text>Invoice Date</Text>
+          <SmallText>{invoiceState.currentInvoice.clientIssueDate}</SmallText>
         </SectionDiv>
 
         <SectionDiv row={"3/4"} col={"1/2"}>
-          <SmallText>Payment Due</SmallText>
-          <Text>{invoiceState.currentInvoice.clientPaymentTerms}</Text>
+          <Text>Payment Due</Text>
+          <SmallText>{invoiceState.currentInvoice.clientPaymentTerms}</SmallText>
         </SectionDiv>
 
         <SectionDiv row={"2/4"} col={"2/3"}>
-          <SmallText>Bill To</SmallText>
-          <Text>{invoiceState.currentInvoice.clientStreetAddress}</Text>
+          <Text>Bill To</Text>
+          <SmallText>{invoiceState.currentInvoice.clientStreetAddress}</SmallText>
           <SmallText>{invoiceState.currentInvoice.clientCity}</SmallText>
           <SmallText>{invoiceState.currentInvoice.clientCountry}</SmallText>
           <SmallText>{invoiceState.currentInvoice.clientPostCode}</SmallText>
         </SectionDiv>
 
         <SectionDiv row={"2/3"} col={"3/5"}>
-          <SmallText>Sent To</SmallText>
-          <Text>{invoiceState.currentInvoice.clientEmail}</Text>
+          <Text>Sent To</Text>
+          <SmallText>{invoiceState.currentInvoice.clientEmail}</SmallText>
         </SectionDiv>
       </TopSection>
 
       <BottomSection>
         <BottomSectionRowContainer>
-          <SmallText>Item Name</SmallText>
-          <SmallText>QTY.</SmallText>
-          <SmallText style={{ justifySelf: "flex-end" }}>Price</SmallText>
-          <SmallText style={{ justifySelf: "flex-end" }}>Total</SmallText>
+          <Text>Item Name</Text>
+          <Text>QTY.</Text>
+          <Text style={{ justifySelf: "flex-end" }}>Price</Text>
+          <Text style={{ justifySelf: "flex-end" }}>Total</Text>
         </BottomSectionRowContainer>
 
         {invoiceState.currentInvoice.items.length > 0
@@ -138,12 +137,8 @@ export default function InvoiceInfo({ invoice }) {
                 <BottomSectionRowContainer key={Math.random() * 1000}>
                   <SmallText>{item.name}</SmallText>
                   <SmallText>{item.qty}</SmallText>
-                  <SmallText style={{ justifySelf: "flex-end" }}>
-                    {item.price}
-                  </SmallText>
-                  <SmallText style={{ justifySelf: "flex-end" }}>
-                    {item.total}
-                  </SmallText>
+                  <SmallText style={{ justifySelf: "flex-end" }}>{item.price}</SmallText>
+                  <SmallText style={{ justifySelf: "flex-end" }}>{item.total}</SmallText>
                 </BottomSectionRowContainer>
               );
             })
